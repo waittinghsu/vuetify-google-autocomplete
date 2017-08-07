@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>vuetify-google-autocomplete</title>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyJUwEpWPLTDZrX9TVeq5m8vGQScqyZCA&libraries=places"></script>
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
   <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
@@ -29,6 +28,7 @@
                     id="map"
                     classname="input"
                     :placeholder="placeholderText"
+                    :disabled="disabled"
                     :types="types"
                     :country="country"
                     :enable-geolocation="enableGeolocation"
@@ -74,12 +74,13 @@
               <v-card>
                 <v-card-row class="orange darken-1">
                   <v-toolbar flat dense class="black">
-                    <v-toolbar-title class="body-2" style="color: white;">Customization</v-toolbar-title>
+                    <v-toolbar-title class="body-2" style="color: white;">Properties</v-toolbar-title>
                   </v-toolbar>
                 </v-card-row>
                 <v-card-text>
                   <v-card-row>
-                    <v-text-field label="Placeholder Text" v-model="placeholderText"></v-text-field>    
+                    <v-text-field label="Placeholder Text" v-model="placeholderText"></v-text-field>
+                    <v-switch label="Disabled" v-model="disabled" color="secondary" hide-details></v-switch>  
                     <v-switch label="Enable Geolocation" v-model="enableGeolocation" color="secondary" hide-details></v-switch>
                     <v-select label="Types" v-bind:items="typesOptions" v-model="types" hint="Choose types" persistent-hint></v-select>
                     <v-select label="Countries" v-bind:items="countryOptions" v-model="country" multiple max-height="400" hint="Choose countries to limit search to" persistent-hint></v-select>
@@ -92,6 +93,6 @@
       </v-card>
     </main>
   </v-app>
-  <script src="../vuetify-google-autocomplete/app.js"></script>
+  <script src="../dist/app.js"></script>
 </body>
 </html>
