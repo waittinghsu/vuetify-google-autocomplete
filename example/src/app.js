@@ -15,6 +15,7 @@ const app = new Vue({
         npmLink: 'https://www.npmjs.com/package/vuetify-google-autocomplete',
         address: {},
         placeholderText: 'Search Address',
+        disabled: false,
         types: 'address',
         typesOptions: [
             'geocode',
