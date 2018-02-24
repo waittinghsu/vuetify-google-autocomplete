@@ -316,12 +316,8 @@ var _countrycode2 = _interopRequireDefault(_countrycode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import Vue from 'vue'
-// import * as VueGoogleMaps from 'vue2-google-maps'
 _vue2.default.use(_index2.default, {
   apiKey: 'AIzaSyDyJUwEpWPLTDZrX9TVeq5m8vGQScqyZCA'
-  // version: '3.26',
-  // libraries: 'places',
 });
 
 _vue2.default.use(_vuetify2.default);
@@ -329,9 +325,7 @@ _vue2.default.use(_vueClipboards2.default);
 
 var app = new _vue2.default({
   el: '#app',
-  // components: { VuetifyGoogleAutocomplete },
   data: {
-    googleApiKey: 'AIzaSyDyJUwEpWPLTDZrX9TVeq5m8vGQScqyZCA',
     autocompleteModel: 'Some Default Location...',
     vueGoogleAutocompleteLink: 'https://github.com/olefirenko/vue-google-autocomplete',
     gitHubLink: 'https://github.com/MadimetjaShika/vuetify-google-autocomplete',
