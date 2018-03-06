@@ -32628,12 +32628,12 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-window.googeMapState = {
+window.vgaMapState = {
   initMap: false
 };
 
-window.initGoogleMaps = function () {
-  window.googeMapState.initMap = true;
+window.initVGAMaps = function () {
+  window.vgaMapState.initMap = true;
 };
 
 _VuetifyGoogleAutocomplete2.default.install = function (Vue, options) {
@@ -32678,7 +32678,7 @@ var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "sym
  */
 var loadGoogleMaps = function loadGoogleMaps(apiKey, version) {
   try {
-    if (!window.googeMapState.initMap) {
+    if (!window.vgaMapState.initMap) {
       var googleMapScript = document.createElement('SCRIPT');
 
       // Allow apiKey to be an object.
@@ -32697,7 +32697,7 @@ var loadGoogleMaps = function loadGoogleMaps(apiKey, version) {
       }
 
       options.libraries = 'places';
-      options.callback = 'initGoogleMaps';
+      options.callback = 'initVGAMaps';
 
       var parameters = Object.keys(options).map(function (key) {
         return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
@@ -32771,6 +32771,10 @@ exports.default = {
     country: {
       type: [String, Array],
       default: null
+    },
+    classname: {
+      type: String,
+      default: ''
     },
     dark: {
       type: Boolean,
@@ -32935,9 +32939,8 @@ exports.default = {
       default: false
     },
     value: {
-      type: String,
       default: undefined,
-      required: false
+      required: true
     }
   },
   // eslint-disable-next-line
@@ -32970,7 +32973,7 @@ exports.default = {
       /**
        * Global Google Maps State Watcher.
        */
-      googeMapState: window.googeMapState
+      vgaMapState: window.vgaMapState
     };
   },
   methods: {
@@ -33126,6 +33129,17 @@ exports.default = {
     // Set the default model if provided.
     this.autocompleteText = this.value ? this.value : '';
   },
+
+  mounted: function mounted() {
+    if (window.hasOwnProperty('google') && window.google.hasOwnProperty('maps')) {
+      // we've been here before. set initMap to true to trigger watcher
+      this.vgaMapState.initMap = true;
+    }
+  },
+  destroyed: function destroyed() {
+    // trip this on the way out so we can differentiate return trips in mounted()
+    window.vgaMapState.initMap = false;
+  },
   render: function render(createElement) {
     var self = this;
     return createElement('v-text-field', {
@@ -33142,6 +33156,7 @@ exports.default = {
         clearable: self.clearable,
         color: self.color,
         counter: self.counter,
+        class: self.classname,
         dark: self.dark,
         disabled: self.disabled,
         'dont-fill-mask-blanks': self.dontFillMaskBlanks,
@@ -33237,7 +33252,7 @@ exports.default = {
       this.enableGeolocation = newVal;
     },
 
-    'googeMapState.initMap': function googeMapStateInitMap(value) {
+    'vgaMapState.initMap': function vgaMapStateInitMap(value) {
       if (value) {
         this.setupGoogle();
       }
