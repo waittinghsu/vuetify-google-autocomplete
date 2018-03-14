@@ -32772,10 +32772,6 @@ exports.default = {
       type: [String, Array],
       default: null
     },
-    classname: {
-      type: String,
-      default: ''
-    },
     dark: {
       type: Boolean,
       default: false
@@ -32939,8 +32935,9 @@ exports.default = {
       default: false
     },
     value: {
+      type: String,
       default: undefined,
-      required: true
+      required: false
     }
   },
   // eslint-disable-next-line
@@ -33132,8 +33129,8 @@ exports.default = {
 
   mounted: function mounted() {
     if (window.hasOwnProperty('google') && window.google.hasOwnProperty('maps')) {
-      // we've been here before. set initMap to true to trigger watcher
-      this.vgaMapState.initMap = true;
+      // we've been here before. just need to get Autocomplete loaded
+      this.setupGoogle();
     }
   },
   destroyed: function destroyed() {
@@ -33156,7 +33153,6 @@ exports.default = {
         clearable: self.clearable,
         color: self.color,
         counter: self.counter,
-        class: self.classname,
         dark: self.dark,
         disabled: self.disabled,
         'dont-fill-mask-blanks': self.dontFillMaskBlanks,
