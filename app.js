@@ -32628,13 +32628,16 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-window.vgaMapState = {
-  initMap: false
-};
+// Prevent window from being accessed within non-browser context.
+if (typeof window !== 'undefined') {
+  window.vgaMapState = {
+    initMap: false
+  };
 
-window.initVGAMaps = function () {
-  window.vgaMapState.initMap = true;
-};
+  window.initVGAMaps = function () {
+    window.vgaMapState.initMap = true;
+  };
+}
 
 _VuetifyGoogleAutocomplete2.default.install = function (Vue, options) {
   if (options.apiKey) {
@@ -32678,6 +32681,11 @@ var _typeof = typeof Symbol === "function" && _typeof2(Symbol.iterator) === "sym
  */
 var loadGoogleMaps = function loadGoogleMaps(apiKey, version) {
   try {
+    // If not within browser context, do not continue processing.
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
+
     if (!window.vgaMapState.initMap) {
       var googleMapScript = document.createElement('SCRIPT');
 
@@ -32970,7 +32978,7 @@ exports.default = {
       /**
        * Global Google Maps State Watcher.
        */
-      vgaMapState: window.vgaMapState
+      vgaMapState: null
     };
   },
   methods: {
@@ -33126,8 +33134,8 @@ exports.default = {
     // Set the default model if provided.
     this.autocompleteText = this.value ? this.value : '';
   },
-
   mounted: function mounted() {
+    this.vgaMapState = window.vgaMapState;
     if (window.hasOwnProperty('google') && window.google.hasOwnProperty('maps')) {
       // we've been here before. just need to get Autocomplete loaded
       this.setupGoogle();
