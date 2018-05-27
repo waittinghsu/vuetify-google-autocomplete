@@ -32686,6 +32686,14 @@ var loadGoogleMaps = function loadGoogleMaps(apiKey, version) {
       return;
     }
 
+    if (_typeof(window.google) === 'object' && _typeof(window.google.maps) === 'object') {
+      if (_typeof(window.google.maps.places) === 'object') {
+        return; // google is already loaded, don't try to load it again to prevent errors
+      }
+
+      throw new Error('Google is already loaded, but does not contain the places API.');
+    }
+
     if (!window.vgaMapState.initMap) {
       var googleMapScript = document.createElement('SCRIPT');
 
@@ -33195,7 +33203,7 @@ exports.default = {
         textarea: self.textarea,
         'toggle-keys': self.toggleKeys,
         type: self.type,
-        value: self.autocompleteText,
+        value: self.value || self.autocompleteText,
         'validate-on-blur': self.validateOnBlur,
         '@focus': self.onFocus(),
         '@blur': self.onFocus(),
@@ -33222,6 +33230,10 @@ exports.default = {
           if (event && event.target) {
             self.value = event.target.value;
             self.$emit('input', event.target.value);
+          } else {
+            // clear was pressed, reset this
+            self.autocompleteText = '';
+            self.$emit('placechanged', null);
           }
         }
       }
