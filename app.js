@@ -30766,6 +30766,11 @@ exports.default = {
           returnData.latitude = place.geometry.location.lat();
           returnData.longitude = place.geometry.location.lng();
 
+          // additional fields available in google places results
+          returnData.name = place.name;
+          returnData.photos = place.photos;
+          returnData.place_id = place.place_id;
+
           // return returnData object and PlaceResult object
           _this2.$emit('placechanged', returnData, place, _this2.id);
 
