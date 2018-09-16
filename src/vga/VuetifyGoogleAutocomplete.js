@@ -860,12 +860,13 @@ export default {
       attrs: {
         id: self.id,
         name: self.id,
+        autocapitalize: self.autocapitalize,
+        autocorrect: self.autocorrect,
+        spellcheck: self.spellcheck,
       },
       props: {
         'append-icon': self.appendIcon,
         'append-icon-cb': self.appendIconCb,
-        autocapitalize: self.autocapitalize,
-        autocorrect: self.autocorrect,
         'auto-grow': self.autoGrow,
         autofocus: self.autofocus,
         box: self.box,
@@ -904,7 +905,6 @@ export default {
         'single-line': self.singleLine,
         solo: self.solo,
         'solo-inverted': self.soloInverted,
-        spellcheck: self.spellcheck,
         suffix: self.suffix,
         tabindex: self.tabindex,
         textarea: self.textarea,
