@@ -837,7 +837,9 @@ export default {
    */
   mounted() {
     this.vgaMapState = window.vgaMapState;
-    if (Object.prototype.hasOwnProperty.call(window, 'google') && Object.prototype.hasOwnProperty.call(window, 'maps')) {
+    // if (Object.prototype.hasOwnProperty.call(window, 'google')
+    //   && Object.prototype.hasOwnProperty.call(window, 'maps')) {
+    if (Object.prototype.hasOwnProperty.call(window, 'google')) {
       // we've been here before. just need to get Autocomplete loaded
       this.setupGoogle();
     }
