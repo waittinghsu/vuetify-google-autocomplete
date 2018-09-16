@@ -324,6 +324,17 @@ export default {
       default: false,
     },
     /**
+     * Maps to Vuetify 'outline' prop.
+     *
+     * @alias module:vuetify-google-autocomplete.props.outline
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {Boolean}
+     */
+    outline: {
+      type: Boolean,
+      default: false,
+    },
+    /**
      * Maps to Vuetify 'persistent-hint' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.persistent-hint
@@ -408,6 +419,17 @@ export default {
      * @type {Boolean}
      */
     returnMaskedValue: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * Maps to Vuetify 'reverse' prop.
+     *
+     * @alias module:vuetify-google-autocomplete.props.reverse
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {Boolean}
+     */
+    reverse: {
       type: Boolean,
       default: false,
     },
@@ -830,6 +852,7 @@ export default {
         mask: self.mask,
         'multi-line': self.multiLine,
         'no-resize': self.noResize,
+        outline: self.outline,
         'persistent-hint': self.persistentHint,
         placeholder: self.placeholder,
         prefix: self.prefix,
@@ -838,6 +861,7 @@ export default {
         readonly: self.readonly,
         required: self.required,
         'return-masked-value': self.returnMaskedValue,
+        reverse: self.reverse,
         'row-height': self.rowHeight,
         rows: self.rows,
         rules: self.rules,
