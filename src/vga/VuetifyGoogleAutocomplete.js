@@ -50,6 +50,28 @@ export default {
       default: null,
     },
     /**
+     * Maps to native HTML5 autocapitalize attribute.
+     *
+     * @alias module:vuetify-google-autocomplete.autocapitalize
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {Boolean}
+     */
+    autocapitalize: {
+      type: String,
+      default: 'off',
+    },
+    /**
+     * Maps to native HTML5 autocorrect attribute.
+     *
+     * @alias module:vuetify-google-autocomplete.autocorrect
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {Boolean}
+     */
+    autocorrect: {
+      type: String,
+      default: 'off',
+    },
+    /**
      * Maps to Vuetify 'auto-grow' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.auto-grow
@@ -500,6 +522,17 @@ export default {
       default: false,
     },
     /**
+     * Maps to native HTML5 spellcheck attribute.
+     *
+     * @alias module:vuetify-google-autocomplete.props.spellcheck
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {String}
+     */
+    spellcheck: {
+      type: String,
+      default: 'false',
+    },
+    /**
      * Maps to Vuetify 'suffix' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.suffix
@@ -831,6 +864,8 @@ export default {
       props: {
         'append-icon': self.appendIcon,
         'append-icon-cb': self.appendIconCb,
+        autocapitalize: self.autocapitalize,
+        autocorrect: self.autocorrect,
         'auto-grow': self.autoGrow,
         autofocus: self.autofocus,
         box: self.box,
@@ -869,6 +904,7 @@ export default {
         'single-line': self.singleLine,
         solo: self.solo,
         'solo-inverted': self.soloInverted,
+        spellcheck: self.spellcheck,
         suffix: self.suffix,
         tabindex: self.tabindex,
         textarea: self.textarea,
