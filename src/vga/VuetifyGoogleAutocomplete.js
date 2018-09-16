@@ -83,6 +83,18 @@ export default {
       default: false,
     },
     /**
+     * Maps to Vuetify 'browser-autocomplete' prop.
+     * @default 'off'
+     *
+     * @alias module:vuetify-google-autocomplete.props.browserAutocomplete
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {String}
+     */
+    browserAutocomplete: {
+      type: String,
+      default: 'off',
+    },
+    /**
      * Maps to Vuetify 'clearable' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.clearable
@@ -800,6 +812,7 @@ export default {
         'auto-grow': self.autoGrow,
         autofocus: self.autofocus,
         box: self.box,
+        'browser-autocomplete': self.browserAutocomplete,
         clearable: self.clearable,
         color: self.color,
         counter: self.counter,
