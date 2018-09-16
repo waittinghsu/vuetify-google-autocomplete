@@ -36,7 +36,8 @@
             item-text="Name"
             item-value="Code"
             v-model="country"
-            multiple max-height="400"
+            multiple
+            :menu-props="{maxHeight:'400'}"
             hint="Choose countries to limit search to"
             :rules="[countryValidationRules]"
             persistent-hint
