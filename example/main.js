@@ -17,6 +17,47 @@ Vue.use(VuetifyGoogleAutocomplete, {
 
 Vue.config.productionTip = false;
 
+Vue.mixin({
+  methods: {
+    navigatePreviousPage() {
+      switch (this.$route.path) {
+        case '/': {
+          this.$router.push('/page-3');
+          break;
+        }
+        case '/page-2': {
+          this.$router.push('/page-1');
+          break;
+        } case '/page-3': {
+          this.$router.push('/page-2');
+          break;
+        } default: {
+          this.$router.push('/');
+          break;
+        }
+      }
+    },
+
+    navigateNextPage() {
+      switch (this.$route.path) {
+        case '/': {
+          this.$router.push('/page-1');
+          break;
+        } case '/page-1': {
+          this.$router.push('/page-2');
+          break;
+        } case '/page-2': {
+          this.$router.push('/page-3');
+          break;
+        } default: {
+          this.$router.push('/');
+          break;
+        }
+      }
+    },
+  },
+});
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
