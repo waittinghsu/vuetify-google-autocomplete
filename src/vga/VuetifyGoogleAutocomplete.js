@@ -39,6 +39,28 @@ export default {
       default: undefined,
     },
     /**
+     * Maps to Vuetify 'prepend-inner-icon' prop.
+     *
+     * @alias module:vuetify-google-autocomplete.props.prepend-inner-icon
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {String}
+     */
+    prependInnerIcon: {
+      type: String,
+      default: undefined,
+    },
+    /**
+     * Maps to Vuetify 'append-outer-icon' prop.
+     *
+     * @alias module:vuetify-google-autocomplete.props.append-outer-icon
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {String}
+     */
+    appendOuterIcon: {
+      type: String,
+      default: undefined,
+    },
+    /**
      * Maps to Vuetify 'append-icon-cb' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.append-icon-cb
@@ -670,6 +692,7 @@ export default {
      * @access private
      */
     onFocus() {
+      console.log('onFocus');
       this.geolocate();
       this.$emit('focus');
     },
@@ -687,6 +710,7 @@ export default {
      * @access private
      */
     onChange() {
+      console.log('onchange');
       this.$emit('change', this.autocompleteText);
     },
 
@@ -697,6 +721,16 @@ export default {
      */
     onKeyPress(event) {
       this.$emit('keypress', event);
+    },
+
+    /**
+     * Called when a key gets pressed
+     * @param {Event} event A keypress event
+     * @access private
+     */
+    onPrependInner(event) {
+      console.log('onPrependInner 111');
+      this.$emit('prependInner', event);
     },
 
     /**
@@ -868,6 +902,7 @@ export default {
       },
       props: {
         'append-icon': self.appendIcon,
+        'append-outer-icon': self.appendOuterIcon,
         'append-icon-cb': self.appendIconCb,
         'auto-grow': self.autoGrow,
         autofocus: self.autofocus,
@@ -895,6 +930,7 @@ export default {
         placeholder: self.placeholder,
         prefix: self.prefix,
         'prepend-icon': self.prependIcon,
+        'prepend-inner-icon': self.prependInnerIcon,
         'prepend-icon-cb': self.prependIconCb,
         readonly: self.readonly,
         required: self.required,
@@ -918,12 +954,23 @@ export default {
         '@blur': self.onFocus(),
         '@change': self.onChange(),
         '@keypress': self.onKeyPress(),
+        '@click:append': self.onPrependInner(),
+        '@click:append-outer': self.onPrependInner(),
+        '@click:prepend-inner': self.onPrependInner(),
+        '@click:prepend': self.onPrependInner(),
       },
       domProps: {
         // value: self.autocompleteText,
       },
+      // click: {
+      //   'prepend-inner': (e) => {
+      //     console.log('199', e);
+      //     // self.onPrependInner(e);
+      //   },
+      // },
       on: {
         focus: () => {
+          console.log('focus');
           self.onFocus();
         },
         blur: () => {
@@ -934,6 +981,18 @@ export default {
         },
         keypress: (e) => {
           self.onKeyPress(e.target.value);
+        },
+        'click:append': (e) => {
+          self.onPrependInner(e);
+        },
+        'click:append-outer': (e) => {
+          self.onPrependInner(e);
+        },
+        'click:prepend': (e) => {
+          self.onPrependInner(e);
+        },
+        'click:prepend=inner': (e) => {
+          self.onPrependInner(e);
         },
         input: (event) => {
           if (event && event.target) {
