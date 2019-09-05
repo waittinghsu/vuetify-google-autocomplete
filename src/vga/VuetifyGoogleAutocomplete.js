@@ -718,7 +718,6 @@ export default {
      * @access private
      */
     onKeyPress(event) {
-      // console.log('onKeyPress');
       this.$emit('keypress', event);
     },
 
@@ -727,9 +726,8 @@ export default {
      * @param {Event} event A append event
      * @access private
      */
-    onAppend(event) {
-      // console.log('onAppend');
-      this.$emit('append', event);
+    onAppend() {
+      this.$emit('click:append');
     },
 
     /**
@@ -737,9 +735,8 @@ export default {
      * @param {Event} event A append-outer event
      * @access private
      */
-    onAppendOuter(event) {
-      // console.log('onAppendOuter');
-      this.$emit('append-outer', event);
+    onAppendOuter() {
+      this.$emit('click:append-outer');
     },
 
     /**
@@ -747,9 +744,8 @@ export default {
      * @param {Event} event A prepend event
      * @access private
      */
-    onPrepend(event) {
-      // console.log('onPrepend');
-      this.$emit('prepend', event);
+    onPrepend() {
+      this.$emit('click:prepend');
     },
 
     /**
@@ -757,9 +753,8 @@ export default {
      * @param {Event} event A prepend-inner event
      * @access private
      */
-    onPrependInner(event) {
-      // console.log('onPrependInner');
-      this.$emit('prepend-inner', event);
+    onPrependInner() {
+      this.$emit('click:prepend-inner');
     },
 
     /**
@@ -983,20 +978,10 @@ export default {
         '@blur': self.onFocus(),
         '@change': self.onChange(),
         '@keypress': self.onKeyPress(),
-        '@click:append': self.onAppend(),
-        '@click:append-outer': self.onAppendOuter(),
-        '@click:prepend': self.onPrepend(),
-        '@click:prepend-inner': self.onPrependInner(),
       },
       domProps: {
         // value: self.autocompleteText,
       },
-      // click: {
-      //   append: (e) => {
-      //     console.log('click:append');
-      //     self.onAppend(e);
-      //   },
-      // },
       on: {
         focus: () => {
           self.onFocus();
@@ -1010,21 +995,17 @@ export default {
         keypress: (e) => {
           self.onKeyPress(e.target.value);
         },
-        'click:append': (e) => {
-          // console.log('click:append');
-          self.onAppend(e);
+        'click:append': () => {
+          self.onAppend();
         },
-        'click:append-outer': (e) => {
-          // console.log('click:append-outer');
-          self.onAppendOuter(e);
+        'click:append-outer': () => {
+          self.onAppendOuter();
         },
-        'click:prepend': (e) => {
-          // console.log('click:prepend');
-          self.onPrepend(e);
+        'click:prepend': () => {
+          self.onPrepend();
         },
-        'click:prepend-inner': (e) => {
-          // console.log('click:prepend=inner');
-          self.onPrependInner(e);
+        'click:prepend-inner': () => {
+          self.onPrependInner();
         },
         input: (event) => {
           if (event && event.target) {
