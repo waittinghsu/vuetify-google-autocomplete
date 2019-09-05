@@ -4,8 +4,8 @@
  */
 export default {
   /**
-  * Component name. Returns 'vuetify-google-autocomplete'.
-  */
+   * Component name. Returns 'vuetify-google-autocomplete'.
+   */
   name: 'vuetify-google-autocomplete',
   /**
    * @mixin
@@ -39,17 +39,6 @@ export default {
       default: undefined,
     },
     /**
-     * Maps to Vuetify 'prepend-inner-icon' prop.
-     *
-     * @alias module:vuetify-google-autocomplete.props.prepend-inner-icon
-     * @see {@link https://vuetifyjs.com/en/components/text-fields}
-     * @type {String}
-     */
-    prependInnerIcon: {
-      type: String,
-      default: undefined,
-    },
-    /**
      * Maps to Vuetify 'append-outer-icon' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.append-outer-icon
@@ -61,9 +50,9 @@ export default {
       default: undefined,
     },
     /**
-     * Maps to Vuetify 'append-icon-cb' prop.
+     * Maps to Vuetify 'append-outer-icon' prop.
      *
-     * @alias module:vuetify-google-autocomplete.props.append-icon-cb
+     * @alias module:vuetify-google-autocomplete.props.append-outer-icon
      * @see {@link https://vuetifyjs.com/en/components/text-fields}
      * @type {Function}
      */
@@ -423,6 +412,17 @@ export default {
       default: undefined,
     },
     /**
+     * Maps to Vuetify 'prepend-inner-icon' prop.
+     *
+     * @alias module:vuetify-google-autocomplete.props.prepend-inner-icon
+     * @see {@link https://vuetifyjs.com/en/components/text-fields}
+     * @type {String}
+     */
+    prependInnerIcon: {
+      type: String,
+      default: undefined,
+    },
+    /**
      * Maps to Vuetify 'prepend-icon-cb' prop.
      *
      * @alias module:vuetify-google-autocomplete.props.prepend-icon-cb
@@ -692,7 +692,6 @@ export default {
      * @access private
      */
     onFocus() {
-      console.log('onFocus');
       this.geolocate();
       this.$emit('focus');
     },
@@ -710,7 +709,6 @@ export default {
      * @access private
      */
     onChange() {
-      console.log('onchange');
       this.$emit('change', this.autocompleteText);
     },
 
@@ -720,17 +718,48 @@ export default {
      * @access private
      */
     onKeyPress(event) {
+      // console.log('onKeyPress');
       this.$emit('keypress', event);
     },
 
     /**
-     * Called when a key gets pressed
-     * @param {Event} event A keypress event
+     * Called when a click append-icon
+     * @param {Event} event A append event
+     * @access private
+     */
+    onAppend(event) {
+      // console.log('onAppend');
+      this.$emit('append', event);
+    },
+
+    /**
+     * Called when a click append-outer-icon
+     * @param {Event} event A append-outer event
+     * @access private
+     */
+    onAppendOuter(event) {
+      // console.log('onAppendOuter');
+      this.$emit('append-outer', event);
+    },
+
+    /**
+     * Called when a click prepend-icon
+     * @param {Event} event A prepend event
+     * @access private
+     */
+    onPrepend(event) {
+      // console.log('onPrepend');
+      this.$emit('prepend', event);
+    },
+
+    /**
+     * Called when a click prepend-inner-icon
+     * @param {Event} event A prepend-inner event
      * @access private
      */
     onPrependInner(event) {
-      console.log('onPrependInner 111');
-      this.$emit('prependInner', event);
+      // console.log('onPrependInner');
+      this.$emit('prepend-inner', event);
     },
 
     /**
@@ -767,10 +796,10 @@ export default {
     },
 
     /**
-    * Bias the autocomplete object to the user's geographical location,
-    * as supplied by the browser's 'navigator.geolocation' object.
-    * @access private
-    */
+     * Bias the autocomplete object to the user's geographical location,
+     * as supplied by the browser's 'navigator.geolocation' object.
+     * @access private
+     */
     geolocate() {
       if (this.enableGeolocation && !this.geolocateSet) {
         if (navigator.geolocation) {
@@ -954,23 +983,22 @@ export default {
         '@blur': self.onFocus(),
         '@change': self.onChange(),
         '@keypress': self.onKeyPress(),
-        '@click:append': self.onPrependInner(),
-        '@click:append-outer': self.onPrependInner(),
+        '@click:append': self.onAppend(),
+        '@click:append-outer': self.onAppendOuter(),
+        '@click:prepend': self.onPrepend(),
         '@click:prepend-inner': self.onPrependInner(),
-        '@click:prepend': self.onPrependInner(),
       },
       domProps: {
         // value: self.autocompleteText,
       },
       // click: {
-      //   'prepend-inner': (e) => {
-      //     console.log('199', e);
-      //     // self.onPrependInner(e);
+      //   append: (e) => {
+      //     console.log('click:append');
+      //     self.onAppend(e);
       //   },
       // },
       on: {
         focus: () => {
-          console.log('focus');
           self.onFocus();
         },
         blur: () => {
@@ -983,15 +1011,19 @@ export default {
           self.onKeyPress(e.target.value);
         },
         'click:append': (e) => {
-          self.onPrependInner(e);
+          // console.log('click:append');
+          self.onAppend(e);
         },
         'click:append-outer': (e) => {
-          self.onPrependInner(e);
+          // console.log('click:append-outer');
+          self.onAppendOuter(e);
         },
         'click:prepend': (e) => {
-          self.onPrependInner(e);
+          // console.log('click:prepend');
+          self.onPrepend(e);
         },
-        'click:prepend=inner': (e) => {
+        'click:prepend-inner': (e) => {
+          // console.log('click:prepend=inner');
           self.onPrependInner(e);
         },
         input: (event) => {
@@ -1012,15 +1044,15 @@ export default {
    */
   watch: {
     /**
-    * Emit the new autocomplete text whenever it changes.
-    */
+     * Emit the new autocomplete text whenever it changes.
+     */
     autocompleteText: function autocompleteText(newVal) {
       this.$emit('input', newVal || '');
     },
 
     /**
-    * Update the SDK country option whenever it changes from the parent.
-    */
+     * Update the SDK country option whenever it changes from the parent.
+     */
     country: function country(newVal) {
       if (newVal) {
         this.autocomplete.componentRestrictions.country = newVal;
@@ -1028,8 +1060,8 @@ export default {
     },
 
     /**
-    * Watches for changes on the Geolocation option.
-    */
+     * Watches for changes on the Geolocation option.
+     */
     enableGeolocation: function enableGeolocation(newVal) {
       if (!newVal) {
         this.geolocateSet = false;
@@ -1045,8 +1077,8 @@ export default {
     },
 
     /**
-    * Update the SDK types option whenever it changes from the parent.
-    */
+     * Update the SDK types option whenever it changes from the parent.
+     */
     types: function types(newVal) {
       if (newVal) {
         this.autocomplete.setTypes([this.types]);
